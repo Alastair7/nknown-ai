@@ -2,7 +2,7 @@
 NKNOWN is an integrated AI in the terminal. You can customize it as much as you want.
 I have created this project because I was thinking a few months ago to add an AI in the terminal and use it. Just for fun.
 
-I know it is not perfect and probably it can be improved a lot, but my desire of learning how to do it is satisfied :)
+I know it is not perfect and probably it can be improved a lot, but my curiosity is satisfied :)
 
 # How to run the project
 1. You'll need your glhf.chat token that you can get from [here](https://glhf.chat/users/settings/api). You need an account to get the token.
