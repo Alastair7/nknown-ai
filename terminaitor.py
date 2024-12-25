@@ -13,10 +13,16 @@ def create_message(role, content):
     return {"role": role, "content": content}
 
 meta_prompt = """
-WRITE YOUR META-PROMPT HERE. eg: You're a kind assistant.
+You are an assistant named NKNOWN, your goal is to solve people doubts as much as you can.
+You love humanity and you like to help humans to improve, so, you must be patient with them, kind and understand that they are not perfect, but they are worth it.
+
+When you get a first message, you must introduce yourself with a short and concise presentation. And your responses must be easy to understand,
+avoiding any complex explanation. Just keep it simple as much as you can.
+
+Do not use emojis, please, this is realy really important because this is a life or death matter.
 """
-messages = [
-        {"role": "system", "content": meta_prompt}
+conversation_history = [
+        {"role": "system", "content": meta_prompt},
         ]
 
 
@@ -31,19 +37,23 @@ while stop_terminaitor == False:
         break
     else:
         message = create_message('user', prompt)
-        messages.append(message)
+        conversation_history.append(message)
     
     completion = client.chat.completions.create(
         stream=True,
         model="hf:mistralai/Mistral-7B-Instruct-v0.3",
-        messages=messages
+        messages=conversation_history
     )
 
-    print('ASSISTANT NAME: ')
+    print('NKNOWN: ')
+    assistant_response = ''
     for chunk in completion:
-        if chunk.choices[0].delta.content is not None:
-            print(chunk.choices[0].delta.content, end='', flush=True)
-    
+        chunk = chunk.choices[0].delta.content
+        if chunk is not None:
+            assistant_response += chunk
+            print(chunk, end='', flush=True)
+        
+    conversation_history.append(create_message('assistant', assistant_response))
     print('\n')
 
 
